@@ -1,5 +1,5 @@
 import { NgFor } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 
 @Component({
   selector: 'app-labs',
@@ -9,12 +9,13 @@ import { Component } from '@angular/core';
 })
 export class LabsComponent {
   welcome = 'Hola';
-  tasks = [
+  tasks = signal([
     'Instalar el Angular CLI',
     'Crear un nuevo proyecto',
     'Crear componentes',
-  ];
-  name: string = 'Gerardo';
+    'Signal',
+  ]);
+  name = signal('Gerardo');
   age: number = 33;
   disabled: boolean = false;
   img: string = 'https://w3schools.com/howto/img_avatar.png';
@@ -29,7 +30,11 @@ export class LabsComponent {
   }
 
   changeHandler(event: Event) {
-    console.log(event);
+    const input = event.target as HTMLInputElement;
+    const newValue = input.value;
+
+    // Para modificar el valor de la señal name se utiliza el método set
+    this.name.set(newValue);
   }
 
   keyDownHandler(event: KeyboardEvent) {
